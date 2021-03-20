@@ -1,6 +1,6 @@
 package com.raasalgul.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.raasalgul.bean.Card;
 import com.raasalgul.bean.CardStatus;
+import com.raasalgul.bean.Deck;
 import com.raasalgul.bean.DeckCardsInfo;
+import com.raasalgul.dto.DailyStats;
+import com.raasalgul.exception.GenericException;
 import com.raasalgul.service.CardService;
 import com.raasalgul.service.DeckService;
 import com.raasalgul.service.UpdateService;
@@ -30,32 +32,32 @@ public class Controller {
 	@Autowired
 	UpdateService updateService;
 	@RequestMapping("/decks/get-all")
-	public List<String> getAllDecks()
+	public Set<Deck> getAllDecks() throws GenericException
 	{
 		return deckService.getAllDecks();
 	}
 	@GetMapping("/decks/card/{deck}")
-	public DeckCardsInfo getDailyUpdateTasks(@PathVariable String deck)
+	public DeckCardsInfo getDailyUpdateTasks(@PathVariable String deck) throws GenericException
 	{
 		return deckService.getCardsOfDeck(deck);
 	}
 	@PostMapping("/card/status-update")
-	public CardStatus cardStatusUpdate(@RequestBody CardStatus cardStatus)
+	public CardStatus cardStatusUpdate(@RequestBody CardStatus cardStatus) throws GenericException
 	{
 		return cardService.cardStatusUpdate(cardStatus);
 	}
 	@DeleteMapping("/card/delete")
-	public Card cardDelete(@RequestBody Card card)
+	public DailyStats cardDelete(@RequestBody DeckCardsInfo deck) throws GenericException
 	{
-		return cardService.cardDelete(card);
+		return cardService.cardDelete(deck);
 	}
 	@DeleteMapping("deck/delete")
-	public String deckDelete(@RequestBody String deck)
+	public String deckDelete(@RequestBody String deck) throws GenericException
 	{
 		return deckService.deckDelete(deck);
 	}
 	@PostMapping("update/add-edit")
-	public DeckCardsInfo updateDeckCardInfo(@RequestBody DeckCardsInfo deckCardInfo)
+	public DeckCardsInfo updateDeckCardInfo(@RequestBody DeckCardsInfo deckCardInfo) throws GenericException
 	{
 		return updateService.updateDeckCardInfo(deckCardInfo);
 	}

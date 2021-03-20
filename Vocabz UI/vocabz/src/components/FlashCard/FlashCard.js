@@ -66,7 +66,7 @@ export default function FlashCard({flashcard}) {
       onClick={() => setFlip(!flip)}
     >
       <div className="front">
-        <h1>{flashcard.word}</h1> 
+        <h1>{flashcard.card}</h1> 
       </div>
       <div className="back"><h3>{flashcard.meaning}</h3></div>
       <div className={classes.card_button}>

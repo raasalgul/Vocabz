@@ -50,10 +50,13 @@ export default function FlashCard({flashdeck}) {
 <div
       className={`card`}
     //   style={{ height: height }}
-      onClick={() => history.push(`/flash-cards`)}
+      onClick={() =>history.push({
+        pathname:`/flash-cards`,
+        state: { deckName: flashdeck.deckName }
+      })}
     >
       <div className="front">
-        <h1>{flashdeck.word}</h1> 
+        <h1>{flashdeck.deckName}</h1> 
       </div>
     </div>
     );
