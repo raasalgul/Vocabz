@@ -15,7 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {useState,useEffect} from "react"
 import { useHistory } from "react-router-dom";
 // import axios from "axios";
-const serviceURLHost="ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
+const serviceURLHost="http://ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
 const useStyles = makeStyles(theme => ({
     root: {
         display:'flex',

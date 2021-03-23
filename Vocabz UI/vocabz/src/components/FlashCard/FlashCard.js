@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 export default function FlashCard({flashcard,flashdeck}) {
     const [flip, setFlip] = useState(false);
     const classes = useStyles();
-    const serviceURLHost="ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
+    const serviceURLHost="http://ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
     async function handleCross()
     {
       let data={};

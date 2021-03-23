@@ -53,7 +53,7 @@ const useStyles = makeStyles({
 export default function FlashCard({flashdeck}) {
     const classes = useStyles();
     const history = useHistory();
-    const serviceURLHost="ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
+    const serviceURLHost="http://ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
     async function handleCross()
     {
       const response = await fetch(`${serviceURLHost}/vocabz-home/deck/delete/${flashdeck.deckName}`, {
