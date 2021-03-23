@@ -7,10 +7,17 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import '../FlashCard/FlashCard.css'
 const useStyles = makeStyles({
+  cross:{
+    position: 'relative',
+    // marginTop:'99%'
+    top:'-8.2em',
+    right:'-7.3em'
+  },
     card_button:{
         position: 'relative',
       // marginTop:'99%'
-      top:'6em'
+      top:'6em',
+      right:'2em'
       },
       cross_button:{
         backgroundColor: "#FF6347",
@@ -47,31 +54,76 @@ const useStyles = makeStyles({
       }
      }
 });
-export default function FlashCard({flashcard}) {
+export default function FlashCard({flashcard,flashdeck}) {
     const [flip, setFlip] = useState(false);
     const classes = useStyles();
+    const serviceURLHost="http://localhost:8089";
+    async function handleCross()
+    {
+      let data={};
+      let cards=[];
+      let updateCard={};
+      data.deck=flashdeck;
+      updateCard.card=flashcard.card;
+      updateCard.meaning=flashcard.meaning;
+      cards.push(updateCard);
+      data.cards=cards;
+      console.log(data);
+      const response = await fetch(`${serviceURLHost}/vocabz-home/card/delete`, {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+
+      return await response.json().then(()=>{window.location.reload(false); }); // parses JSON response into native JavaScript objects
    
-    function handleNext() {
-        console.log(`handle green`);
-        setFlip(!flip);
     }
-    function handlePrevious() {
-        console.log(`handle red`);
-        setFlip(!flip);
+    async function handleNext(todo) {
+      let data={};
+      data.deck=flashdeck;
+      data.card=flashcard.card;
+      data.status=todo;
+      console.log(data);
+      const response = await fetch(`${serviceURLHost}/vocabz-home/card/status-update`, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+
+      return await response.json(); // parses JSON response into native JavaScript objects
+
     }
     return (
 <div
       className={`card ${flip ? 'flip' : ''}`}
     //   style={{ height: height }}
-      onClick={() => setFlip(!flip)}
     >
-      <div className="front">
+       <div className={classes.cross}>
+      <Button variant='contained' onClick={handleCross}>&#10060;</Button>
+      </div>
+      <div className="front" onClick={() => setFlip(!flip)}>
         <h1>{flashcard.card}</h1> 
       </div>
-      <div className="back"><h3>{flashcard.meaning}</h3></div>
+      <div className="back"   onClick={() => setFlip(!flip)}><h3>{flashcard.meaning}</h3></div>
       <div className={classes.card_button}>
-<Button size="small" variant="contained" color="default" className={classes.cross_button} onClick={handlePrevious}>&#x2717;</Button>
-<Button size="small" variant="contained" color="default" className={classes.tick_button} onClick={handleNext}>&#10003;</Button>
+<Button size="small" variant="contained" color="default" className={classes.cross_button} onClick={()=>handleNext("failure")}>&#x2717;</Button>
+<Button size="small" variant="contained" color="default" className={classes.tick_button} onClick={()=>handleNext("sucess")}>&#10003;</Button>
 </div>
     </div>
     );

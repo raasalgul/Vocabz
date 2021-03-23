@@ -39,7 +39,7 @@ public class CardService {
 			{
 				level=(float) (level+level/10);
 			}
-			else
+			else if(level<100)
 			{
 				level=(float) (level+level/5);
 			}
@@ -60,7 +60,8 @@ public class CardService {
 		Optional<DailyStats> dailyStat;
 		try {
 			List<DailyStats> cards=dailyStatsRepository.findByDeck(deck.getDeck());
-			dailyStat=cards.stream().filter(card->card.getCard().equals(deck.getCards().get(0).getCard()))
+			dailyStat=cards.stream().filter(card->card.getCard()!=null)
+					.filter(card->card.getCard().equals(deck.getCards().get(0).getCard()))
 			.findAny();
 			dailyStatsRepository.deleteById(dailyStat.get().get_id());
 	}

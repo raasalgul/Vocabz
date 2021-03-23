@@ -22,10 +22,10 @@ flexBasis:'15%'
   },
   '& .MuiButton-outlined':{
     position:'relative',
-    left:'57.8em'
+    left:'56.8em'
   },
     position: 'relative',
-    top:'50px'
+    top:'5em'
   },
   year: {
    display:'flex',
@@ -35,7 +35,7 @@ flexBasis:'15%'
   },
   root_cardContent:{
     backgroundImage:'linear-gradient(to bottom,#7F8086,#080808);',
-    minHeight:550,
+    minHeight:'55em',
     // maxHeight: 500,
     overflowY:'scroll'
   },
@@ -68,12 +68,16 @@ useEffect(()=>{
     });
   },[]);
   function handleAdd() {
-    history.push(`/edit-card`);
+    history.push(
+      {
+        pathname:`/edit-card`,
+        state: { deckName: data.deck,newDeck:false,newCard:true }
+      }
+      );
   }
 return (
   <div>
   {load?<div className={classes.root}>
-        {console.log(`path params ${props.location.state.deckName}`)}
             <Card className={classes.root_cardContent}>
             <Button variant='outlined' onClick={()=>{history.push(`/flash-decks`)}}>&#10060;</Button>
             <Typography variant="h5" component="h2" className={classes.topic_style}>
@@ -85,7 +89,7 @@ return (
                   Object.keys(data).length !== 0?data.cards.map((value,index)=>{
                     return(
                      <Grid item key={index} item xs={3}>
-                    <FlashCard flashcard={value}/>
+                    <FlashCard flashcard={value} flashdeck={data.deck}/>
                      </Grid>);
                 }
                 )

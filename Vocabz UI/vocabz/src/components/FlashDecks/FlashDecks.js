@@ -68,7 +68,12 @@ useEffect(()=>{
     });
   },[]);
   function handleAdd() {
-    history.push(`/edit-card`);
+    history.push(
+      {
+        pathname:`/edit-card`,
+        state: { deckName:'',newDeck:true,newCard:true }
+      }
+      );
   }
 return (
   <div>

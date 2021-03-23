@@ -77,22 +77,22 @@ const useStyles = makeStyles(theme => ({
       }
     }
   }));
-export default function EditCard() {
+export default function EditCard(props) {
   const history = useHistory();
-    const [deck, setDeck] = React.useState('');
+    const [deck, setDeck] = React.useState(props.location.state.deckName);
     const [card, setCard] = React.useState('');
     const [meaning,setMeaning]=React.useState('');
-    const [checkedTopic, setCheckedTopic] = React.useState(true);
-    const [checkedTask, setCheckedTask] = React.useState(true);
+    const [checkedDeck, setCheckedDeck] = React.useState(props.location.state.newDeck);
+    const [checkedCard, setCheckedCard] = React.useState(props.location.state.newCard);
     // const [checkedActive,setCheckedActive]=React.useState(false);
     const [check,setCheck]=useState(false); 
     const [decks,setDecks]=React.useState([]);
     const [getDeckObject,setDeckObject]=React.useState({ "deck": "",
-    "card": [
-       
-    ],
-    "meaning":[
-
+    "cards":[
+      {
+        "card":"",
+        "meaning":""
+      }
     ]
   });
     useEffect(()=>{
@@ -101,16 +101,20 @@ export default function EditCard() {
         // console.log(topics);
         // setDecks(topics);
       // });
-      fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/deck`).then((response) => {
+      fetch(`${serviceURLHost}/vocabz-home/decks/get-all`).then((response) => {
         return response.json();
       })
       .then((myJson) => {
         console.log(myJson);
-        setDecks(myJson);
+        let deckArr=[];
+        myJson.map(value=>{
+          deckArr.push(value.deckName);
+        });
+        setDecks(deckArr);
       });
-      // if(deck!=='' && !checkedTopic)
-      if(deck!=='' && !checkedTopic)
-      fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/card/${deck}`).then((response) => {
+      // if(deck!=='' && !checkedDeck)
+      if(deck!=='' && !checkedDeck)
+      fetch(`${serviceURLHost}/vocabz-home/decks/card/${deck}`).then((response) => {
         return response.json();
       })
       .then((myJson) => {
@@ -118,19 +122,23 @@ export default function EditCard() {
         setDeckObject(myJson);
        
       });
-    },[deck,checkedTopic]);
+    },[deck,checkedDeck]);
   const classes = useStyles();
   function handleClose()
   {
-    history.push(`/flash-cards`);
+    history.push(`/flash-decks`);
   }
   async function handleSubmit(){
     let data={};
+    let cards=[];
+    let updateCard={};
     data.deck=deck;
-    data.card=card;
-    data.meaning=meaning;
+    updateCard.card=card;
+    updateCard.meaning=meaning;
+    cards.push(updateCard);
+    data.cards=cards;
     console.log(data);
-    const response = await fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/post`, {
+    const response = await fetch(`${serviceURLHost}/vocabz-home/update/add-edit`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -148,11 +156,13 @@ export default function EditCard() {
   }
   return (
       <div className={classes.root}>
+        {
+        }
          {check? <div style={{position:"absolute",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:null}
     <Card className={classes.card}>
     <Button variant='outlined' onClick={handleClose}>&#10060;</Button>
       <CardContent className={classes.cardContent}>
-          {checkedTopic?
+          {checkedDeck?
         <TextField  value={deck} className={classes.deck} id="standard-basic" label="Deck"  onChange={(event)=>{setDeck(event.target.value)}}/>:
         <FormControl className={classes.formControl}>
       <InputLabel id="deck-select-label">Deck</InputLabel>
@@ -168,7 +178,8 @@ export default function EditCard() {
             })
           }}
         >
-{decks.map(
+{
+decks.map(
                       (stateCodeOption, index) => (
                         <MenuItem key={index} value={stateCodeOption}>
                           {stateCodeOption}
@@ -181,8 +192,8 @@ export default function EditCard() {
         className={classes.checkboxs}
         control={
             <Checkbox
-            checked={checkedTopic}
-            onChange={()=>{setCheckedTopic(!checkedTopic);
+            checked={checkedDeck}
+            onChange={()=>{setCheckedDeck(!checkedDeck);
             }}
             value="primary"
             inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -190,7 +201,7 @@ export default function EditCard() {
         }
         label="New Deck"
       />
-        {checkedTask?
+        {checkedCard?
          <TextField value={card} className={classes.task_view} id="standard-basic" label="Card" onChange={(event)=>{setCard(event.target.value)}}/>:
         <FormControl className={classes.formControl}>
       <InputLabel id="card-select-label">Card</InputLabel>
@@ -206,18 +217,22 @@ export default function EditCard() {
             new Promise(resolve => {
               setTimeout(() => {
                 resolve();
-              const localTask=getDeckObject.tasks.indexOf(event.target.value);
+              let cards=getDeckObject.cards;
               //  const checked=getDeckObject.active.find((value,index)=>{ if(index===getDeckObject.tasks.indexOf(event.target.value))return value; });
-                console.log(getDeckObject.tasks[localTask] +` `+getDeckObject.active[localTask]);
-                setMeaning(getDeckObject.meaning[localTask]);
+              let card=cards.find(card=>{
+                if(event.target.value===card.card)
+                return card;
+              })
+              console.log(JSON.stringify(getDeckObject.cards) +` `+JSON.stringify(card));
+                setMeaning(card.meaning);
               }, 1000);
             })
           }}
         >
-          {getDeckObject.tasks.map(
-                      (stateCodeOption, index) => (
-                        <MenuItem key={index} value={stateCodeOption}>
-                          {stateCodeOption}
+          {getDeckObject.cards.map(
+                      (card, index) => (
+                        <MenuItem key={index} value={card.card}>
+                          {card.card}
                         </MenuItem>
                       )
                     )}
@@ -230,8 +245,8 @@ export default function EditCard() {
         className={classes.checkboxs}
         control={
             <Checkbox
-            checked={checkedTask}
-            onChange={()=>{setCheckedTask(!checkedTask);
+            checked={checkedCard}
+            onChange={()=>{setCheckedCard(!checkedCard);
             }}
             value="primary"
             inputProps={{ 'aria-label': 'primary checkbox' }}

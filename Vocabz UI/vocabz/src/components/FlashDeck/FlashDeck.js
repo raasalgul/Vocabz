@@ -1,12 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import '../FlashCard/FlashCard.css'
+import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
+  cross:{
+    position: 'relative',
+    // marginTop:'99%'
+    top:'-8em',
+    right:'-4.2em'
+  },
     card_button:{
         position: 'relative',
       // marginTop:'99%'
-      top:'6em'
+      top:'6em',
       },
       cross_button:{
         backgroundColor: "#FF6347",
@@ -46,16 +53,35 @@ const useStyles = makeStyles({
 export default function FlashCard({flashdeck}) {
     const classes = useStyles();
     const history = useHistory();
+    const serviceURLHost="http://localhost:8089";
+    async function handleCross()
+    {
+      const response = await fetch(`${serviceURLHost}/vocabz-home/deck/delete/${flashdeck.deckName}`, {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        // body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+      return await response.json().then(()=>{window.location.reload(false); }); // parses JSON response into native JavaScript objects
+    }
     return (
 <div
       className={`card`}
-    //   style={{ height: height }}
-      onClick={() =>history.push({
+    >
+      <div className={classes.cross}>
+      <Button variant='contained' onClick={handleCross}>&#10060;</Button>
+      </div>
+      <div className="front"  onClick={() =>history.push({
         pathname:`/flash-cards`,
         state: { deckName: flashdeck.deckName }
-      })}
-    >
-      <div className="front">
+      })}>
         <h1>{flashdeck.deckName}</h1> 
       </div>
     </div>

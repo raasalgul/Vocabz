@@ -51,8 +51,8 @@ public class Controller {
 	{
 		return cardService.cardDelete(deck);
 	}
-	@DeleteMapping("deck/delete")
-	public String deckDelete(@RequestBody String deck) throws GenericException
+	@DeleteMapping("deck/delete/{deck}")
+	public String deckDelete(@PathVariable String deck) throws GenericException
 	{
 		return deckService.deckDelete(deck);
 	}
