@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FlashDeck from '../FlashDeck/FlashDeck';
 import { useHistory } from "react-router-dom";
+import {serviceURLHost} from "../../constants/Constant"
 const useStyles = makeStyles({
   MuiGridGridXs3:{
 flexBasis:'15%'
@@ -51,7 +52,6 @@ flexBasis:'15%'
 let topicIndex=0;
 export default function FlashDecks() {
   const history = useHistory();
-    const serviceURLHost="http://localhost:8089";
   const classes = useStyles();
 
 const [yearKeys,setYearKeys]=useState(['2021']);

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import '../FlashCard/FlashCard.css'
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
+import {serviceURLHost} from "../../constants/Constant"
 const useStyles = makeStyles({
   cross:{
     position: 'relative',
@@ -53,7 +54,6 @@ const useStyles = makeStyles({
 export default function FlashCard({flashdeck}) {
     const classes = useStyles();
     const history = useHistory();
-    const serviceURLHost="http://localhost:8089";
     async function handleCross()
     {
       const response = await fetch(`${serviceURLHost}/vocabz-home/deck/delete/${flashdeck.deckName}`, {

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FlashCard from '../FlashCard/FlashCard';
 import { useHistory } from "react-router-dom";
+import {serviceURLHost} from "../../constants/Constant"
 const useStyles = makeStyles({
   MuiGridGridXs3:{
 flexBasis:'15%'
@@ -53,7 +54,6 @@ flexBasis:'15%'
 let topicIndex=0;
 export default function FlashCards(props) {
   const history = useHistory();
-    const serviceURLHost="http://localhost:8089";
   const classes = useStyles();
   
 const [data,setData]=useState({});

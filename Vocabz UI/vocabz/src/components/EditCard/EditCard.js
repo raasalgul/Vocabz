@@ -14,8 +14,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {useState,useEffect} from "react"
 import { useHistory } from "react-router-dom";
+import {serviceURLHost} from "../../constants/Constant"
 // import axios from "axios";
-const serviceURLHost="http://localhost:8089";
 const useStyles = makeStyles(theme => ({
     root: {
         display:'flex',

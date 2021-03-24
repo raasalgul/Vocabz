@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import '../FlashCard/FlashCard.css'
+import {serviceURLHost} from "../../constants/Constant"
 const useStyles = makeStyles({
   cross:{
     position: 'relative',
@@ -57,7 +58,6 @@ const useStyles = makeStyles({
 export default function FlashCard({flashcard,flashdeck}) {
     const [flip, setFlip] = useState(false);
     const classes = useStyles();
-    const serviceURLHost="http://localhost:8089";
     async function handleCross()
     {
       let data={};
