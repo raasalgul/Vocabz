@@ -51,7 +51,7 @@ flexBasis:'15%'
 let topicIndex=0;
 export default function FlashDecks() {
   const history = useHistory();
-    const serviceURLHost="http://ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
+    const serviceURLHost="http://localhost:8089";
   const classes = useStyles();
 
 const [yearKeys,setYearKeys]=useState(['2021']);

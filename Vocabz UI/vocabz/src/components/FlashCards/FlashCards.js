@@ -53,7 +53,7 @@ flexBasis:'15%'
 let topicIndex=0;
 export default function FlashCards(props) {
   const history = useHistory();
-    const serviceURLHost="http://ec2-3-129-248-199.us-east-2.compute.amazonaws.com:8089";
+    const serviceURLHost="http://localhost:8089";
   const classes = useStyles();
   
 const [data,setData]=useState({});
