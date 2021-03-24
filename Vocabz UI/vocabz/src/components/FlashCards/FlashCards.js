@@ -23,7 +23,7 @@ flexBasis:'15%'
   },
   '& .MuiButton-outlined':{
     position:'relative',
-    left:'56.8em'
+    left:'42.0em'
   },
     position: 'relative',
     top:'5em'
