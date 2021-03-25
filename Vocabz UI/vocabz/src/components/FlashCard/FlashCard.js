@@ -24,13 +24,25 @@ const useStyles = makeStyles({
         backgroundColor: "#FF6347",
         color:"#ffffff",
         float:"left",
-        margin:10, 
+        margin:5, 
         borderRadius:"100px",
         minWidth:"min-content", 
         '&:hover': {
          backgroundColor:'#FF6347',
          color: '#FFF'
      }
+     },
+     minu_button:{
+      backgroundColor: "#cbe009",
+      color:"#ffffff",
+      float:"left",
+      margin:5, 
+      borderRadius:"100px",
+      minWidth:"min-content", 
+      '&:hover': {
+       backgroundColor:'#cbe009',
+       color: '#FFF'
+   }
      },
      view_button:{
         backgroundColor: "#41658A",
@@ -46,7 +58,7 @@ const useStyles = makeStyles({
         backgroundColor: "#006400",
         color:"#ffffff",
         float:"right",
-        margin:10,
+        margin:5,
         borderRadius:"100px",
         minWidth:"min-content",
         '&:hover': {
@@ -55,7 +67,7 @@ const useStyles = makeStyles({
       }
      }
 });
-export default function FlashCard({flashcard,flashdeck}) {
+export default function FlashCard({flashcard,flashdeck,removeCard}) {
     const [flip, setFlip] = useState(false);
     const classes = useStyles();
     async function handleCross()
@@ -83,7 +95,7 @@ export default function FlashCard({flashcard,flashdeck}) {
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       });
 
-      return await response.json().then(()=>{window.location.reload(false); }); // parses JSON response into native JavaScript objects
+      return await response.json().then(()=>{removeCard(flashcard.card) }); // parses JSON response into native JavaScript objects
    
     }
     async function handleNext(todo) {
@@ -106,7 +118,7 @@ export default function FlashCard({flashcard,flashdeck}) {
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       });
 
-      return await response.json(); // parses JSON response into native JavaScript objects
+      return await response.json().then(()=>{removeCard(flashcard.card)}); // parses JSON response into native JavaScript objects
 
     }
     return (
@@ -123,6 +135,7 @@ export default function FlashCard({flashcard,flashdeck}) {
       <div className="back"   onClick={() => setFlip(!flip)}><h3>{flashcard.meaning}</h3></div>
       <div className={classes.card_button}>
 <Button size="small" variant="contained" color="default" className={classes.cross_button} onClick={()=>handleNext("failure")}>&#x2717;</Button>
+<Button size="small" variant="contained" color="default" className={classes.minu_button} onClick={()=>handleNext("neutral")}>&#8722;</Button>
 <Button size="small" variant="contained" color="default" className={classes.tick_button} onClick={()=>handleNext("sucess")}>&#10003;</Button>
 </div>
     </div>

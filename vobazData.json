@@ -1,0 +1,329 @@
+[{
+  "_id": {
+    "$oid": "6057479a29f37047f8f79cc1"
+  },
+  "userId": "1",
+  "deck": "To Use 1-100",
+  "card": "Charismatic",
+  "meaning": "person attracts, influences, and inspires people by their personal qualities",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:18:18.411Z"
+      }
+    },
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:34:12.072Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:34:12.072Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "60574ee15aa2b645427f7f6f"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Figment",
+  "meaning": "a thing that someone believes to be real but that exists only in their imagination",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:49:21.021Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:49:21.021Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "60574f5b5aa2b645427f7f70"
+  },
+  "userId": "1",
+  "deck": "To Use 1-100",
+  "card": "Heritage",
+  "meaning": "property that is or may be inherited; an inheritance",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:51:23.244Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:51:23.244Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "60574f995aa2b645427f7f71"
+  },
+  "userId": "1",
+  "deck": "To Use 1-100",
+  "card": "Mythology",
+  "meaning": "a collection of myths, especially one belonging to a particular religious or cultural tradition",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:52:25.826Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:52:25.826Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "60574fd75aa2b645427f7f72"
+  },
+  "userId": "1",
+  "deck": "To Use 1-100",
+  "card": "Chronicles",
+  "meaning": "a factual written account of important or historical events in the order of their occurrence",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:53:27.743Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:53:27.743Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605750325aa2b645427f7f73"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Confidant",
+  "meaning": "one to whom secrets are entrusted especially : intimate",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:54:58.873Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:54:58.873Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "6057505f5aa2b645427f7f74"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Intimate",
+  "meaning": "private and personal.",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:55:43.081Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:55:43.081Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605750f15aa2b645427f7f75"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Orientation",
+  "meaning": "a person's basic attitude, beliefs, or feelings in relation to a particular subject or issue",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:58:09.154Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:58:09.154Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605751585aa2b645427f7f76"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Gaze",
+  "meaning": "to look steadily and intently at something, especially at that which excites admiration, curiosity, or interest: to gaze at scenery, at a scientific experiment.",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T13:59:52.628Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T13:59:52.628Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605752415aa2b645427f7f77"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Shimmer",
+  "meaning": "shine with a soft, slightly wavering light",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T14:03:45.232Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T14:03:45.232Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605752725aa2b645427f7f78"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Gleam",
+  "meaning": "to shine with or as if with subdued steady light or moderate brightness.",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T14:04:34.344Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T14:04:34.344Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605752b75aa2b645427f7f79"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Lithe",
+  "meaning": "easily bent or flexed; lithe steel a lithe vine",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T14:05:43.158Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T14:05:43.158Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605752e05aa2b645427f7f7a"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Perch",
+  "meaning": "an object on which a bird alights or roosts, typically a branch or horizontal bar.",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T14:06:24.726Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T14:06:24.726Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+},{
+  "_id": {
+    "$oid": "605753385aa2b645427f7f7b"
+  },
+  "userId": "1",
+  "deck": "To Know 1-100",
+  "card": "Alight",
+  "meaning": "descend from; descend from a train, bus, or other form of transport. or (of a bird) descend from the air and settle.",
+  "status": [
+    {
+      "level": 100,
+      "updatedDate": {
+        "$date": "2021-03-21T14:07:52.307Z"
+      }
+    }
+  ],
+  "addedLogon": {
+    "$date": "2021-03-21T14:07:52.307Z"
+  },
+  "addedDate": {
+    "$date": "2021-03-20T18:30:00Z"
+  },
+  "_class": "com.raasalgul.dto.DailyStats"
+}]

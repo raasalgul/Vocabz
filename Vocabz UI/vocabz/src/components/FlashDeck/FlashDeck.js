@@ -76,7 +76,7 @@ export default function FlashCard({flashdeck}) {
       className={`card`}
     >
       <div className={classes.cross}>
-      <Button variant='contained' onClick={handleCross}>&#10060;</Button>
+      {/* <Button variant='contained' onClick={handleCross}>&#10060;</Button> */}
       </div>
       <div className="front"  onClick={() =>history.push({
         pathname:`/flash-cards`,

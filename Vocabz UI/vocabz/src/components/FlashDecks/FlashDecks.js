@@ -39,7 +39,7 @@ flexBasis:'15%'
     overflowY:'scroll'
   },
   topic_style: {
-    color: "#70A37F",
+    color: "#212121",
     fontSize: 32,
     fontFamily:"Andale Mono",
     padding:20
@@ -78,6 +78,9 @@ useEffect(()=>{
 return (
   <div>
   {load?<div className={classes.root}>
+  <Typography variant="h5" component="h2" className={classes.topic_style}>
+                       {"Deck"}
+                       </Typography>
         <div className={classes.year}>
         <InputLabel id="topic-select-label">Year</InputLabel>
         <Select

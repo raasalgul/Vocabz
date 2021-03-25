@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,10 @@ public class DeckService {
 		try {
 			List<Card> cards=new ArrayList<>();
 			List<DailyStats> deckInfos=dailyStatsRepository.findByDeck(deck);
+			System.out.println(deckInfos);
+			deckInfos=deckInfos.stream().sorted((v1,v2)->Float.compare(v1.getStatus().get(v1.getStatus().size()-1).getLevel(),v2.getStatus().get(v2.getStatus().size()-1).getLevel())).collect(Collectors.toList());
+			deckInfos=deckInfos.stream().sorted((v1,v2)->Integer.compare(v1.getStatus().size(),v2.getStatus().size())).collect(Collectors.toList());
+			System.out.println(deckInfos);
 			deckCardsInfo.setDeck(deckInfos.get(0).getDeck());
 			deckInfos.forEach(deckInfo->{
 				Card card=new Card(deckInfo.getCard(),deckInfo.getMeaning());
