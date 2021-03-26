@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+screen -ls
+screen -r
+
+connect to mongo:
+mongodb server start
+mongo
+
+sudo mongoexport --db newdb -c restaurants --out newdbexport.json
+sudo mongoimport --db newdb --collection restaurants --file primer-dataset.json
+
