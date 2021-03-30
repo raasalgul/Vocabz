@@ -12,7 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FlashDeck from '../FlashDeck/FlashDeck';
 import { useHistory } from "react-router-dom";
-import {serviceURLHost} from "../../constants/Constant"
+import {serviceURLHost} from "../../constants/Constant";
+import authHeader from '../services/auth-header';
+import axios from "axios";
 const useStyles = makeStyles({
   MuiGridGridXs3:{
 flexBasis:'15%'
@@ -57,11 +59,12 @@ export default function FlashDecks() {
 const [yearKeys,setYearKeys]=useState(['2021']);
 const [yearKey,setYearKey]=useState('2021');
 const [data,setData]=useState({});
-const [load,setLoad]=useState(true);
+const [load,setLoad]=useState(false);
 useEffect(()=>{
-  fetch(`${serviceURLHost}/vocabz-home/decks/get-all`).then((response) => {
-    return response.json();
-  })
+  // fetch(`${serviceURLHost}/vocabz-home/decks/get-all`,{ headers: authHeader() }).then((response) => {
+  //   return response.json();
+  // })
+  axios.get(`${serviceURLHost}/vocabz-home/decks/get-all`, { headers: authHeader() })
   .then((myJson) => {
     setData(myJson);
     setLoad(true);
@@ -77,7 +80,7 @@ useEffect(()=>{
   }
 return (
   <div>
-  {load?<div className={classes.root}>
+  {Object.keys(data).length>0?<div className={classes.root}>
   <Typography variant="h5" component="h2" className={classes.topic_style}>
                        {"Deck"}
                        </Typography>
@@ -104,7 +107,7 @@ return (
             <CardContent className={classes.root_cardContent}>
                 <Grid container spacing={1}>
                 {
-                  Object.keys(data).length !== 0?data.map((value,index)=>{
+                  Object.keys(data).length !== 0?data.data.map((value,index)=>{
                     return(
                      <Grid item key={index} item xs={3}>
                     <FlashDeck flashdeck={value}/>

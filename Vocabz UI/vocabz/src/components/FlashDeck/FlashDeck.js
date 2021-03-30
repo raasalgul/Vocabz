@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import '../FlashCard/FlashCard.css'
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
-import {serviceURLHost} from "../../constants/Constant"
+import {serviceURLHost} from "../../constants/Constant";
+import authHeader from '../services/auth-header';
 const useStyles = makeStyles({
   cross:{
     position: 'relative',
@@ -61,10 +62,7 @@ export default function FlashCard({flashdeck}) {
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
+        headers: authHeader(),
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *client
         // body: JSON.stringify(data) // body data type must match "Content-Type" header

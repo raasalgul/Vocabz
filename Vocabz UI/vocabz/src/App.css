@@ -2,7 +2,9 @@
   text-align: center;
   color: white;
 }
-
+.Toolbar{
+  background-color:'#AE8875'
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

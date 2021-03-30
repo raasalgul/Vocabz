@@ -1,8 +1,19 @@
 package com.raasalgul.controller;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +26,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.raasalgul.bean.CardStatus;
 import com.raasalgul.bean.Deck;
 import com.raasalgul.bean.DeckCardsInfo;
+import com.raasalgul.bean.ERole;
 import com.raasalgul.dto.DailyStats;
+import com.raasalgul.dto.Role;
+import com.raasalgul.dto.Users;
 import com.raasalgul.exception.GenericException;
+import com.raasalgul.payload.request.LoginRequest;
+import com.raasalgul.payload.request.SignupRequest;
+import com.raasalgul.payload.response.JwtResponse;
+import com.raasalgul.payload.response.MessageResponse;
+import com.raasalgul.repository.RoleRepository;
+import com.raasalgul.repository.UsersRepository;
+import com.raasalgul.security.jwt.JwtUtils;
+import com.raasalgul.security.services.UserDetailsImpl;
 import com.raasalgul.service.CardService;
+//import com.raasalgul.service.CustomUserDetailService;
 import com.raasalgul.service.DeckService;
 import com.raasalgul.service.UpdateService;
 
@@ -31,6 +54,8 @@ public class Controller {
 	CardService cardService;
 	@Autowired
 	UpdateService updateService;
+//	@Autowired
+//	CustomUserDetailService customUserDetailService;
 	@RequestMapping("/decks/get-all")
 	public Set<Deck> getAllDecks() throws GenericException
 	{
@@ -61,4 +86,10 @@ public class Controller {
 	{
 		return updateService.updateDeckCardInfo(deckCardInfo);
 	}
+//	@PostMapping("/sign-up")
+//	public String securedHello(@RequestBody Users users) throws GenericException
+//	{
+//		return customUserDetailService.signUpService(users);
+//	}
+	
 }

@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {useState,useEffect} from "react"
 import { useHistory } from "react-router-dom";
 import {serviceURLHost} from "../../constants/Constant"
+import authHeader from '../services/auth-header';
 // import axios from "axios";
 const useStyles = makeStyles(theme => ({
     root: {
@@ -101,7 +102,7 @@ export default function EditCard(props) {
         // console.log(topics);
         // setDecks(topics);
       // });
-      fetch(`${serviceURLHost}/vocabz-home/decks/get-all`).then((response) => {
+      fetch(`${serviceURLHost}/vocabz-home/decks/get-all`,{ headers: authHeader() }).then((response) => {
         return response.json();
       })
       .then((myJson) => {
@@ -114,7 +115,7 @@ export default function EditCard(props) {
       });
       // if(deck!=='' && !checkedDeck)
       if(deck!=='' && !checkedDeck)
-      fetch(`${serviceURLHost}/vocabz-home/decks/card/${deck}`).then((response) => {
+      fetch(`${serviceURLHost}/vocabz-home/decks/card/${deck}`,{ headers: authHeader() }).then((response) => {
         return response.json();
       })
       .then((myJson) => {
@@ -143,10 +144,7 @@ export default function EditCard(props) {
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: authHeader(),
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'no-referrer', // no-referrer, *client
       body: JSON.stringify(data) // body data type must match "Content-Type" header

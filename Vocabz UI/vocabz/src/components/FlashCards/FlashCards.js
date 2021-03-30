@@ -12,6 +12,7 @@ import FlashCard from '../FlashCard/FlashCard';
 import { useHistory } from "react-router-dom";
 import {serviceURLHost} from "../../constants/Constant"
 import AutorenewIcon from '@material-ui/icons/Autorenew';
+import authHeader from '../services/auth-header';
 const useStyles = makeStyles({
   refresh:{
     color:"#202020",
@@ -87,7 +88,7 @@ const [data,setData]=useState({});
 const [deck,setDeck]=useState("");
 const [load,setLoad]=useState(true);
 useEffect(()=>{
-  fetch(`${serviceURLHost}/vocabz-home/decks/card/${props.location.state.deckName}`).then((response) => {
+  fetch(`${serviceURLHost}/vocabz-home/decks/card/${props.location.state.deckName}`,{ headers: authHeader() }).then((response) => {
     return response.json();
   })
   .then((myJson) => {
@@ -98,7 +99,7 @@ useEffect(()=>{
   },[]);
   const refreshCanvas = () => {
     setSpin(true);
-    fetch(`${serviceURLHost}/vocabz-home/decks/card/${deck}`).then((response) => {
+    fetch(`${serviceURLHost}/vocabz-home/decks/card/${deck}`,{ headers: authHeader() }).then((response) => {
       return response.json();
     })
     .then((myJson) => {
