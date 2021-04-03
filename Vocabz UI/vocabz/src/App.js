@@ -47,7 +47,9 @@ function App() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleLogin = () => {
+    window.location.href="/login"
+  };
   const handleLogout=()=>{
     AuthService.logout();
     // history.push('/login');
@@ -94,7 +96,7 @@ function App() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogin}>Login</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

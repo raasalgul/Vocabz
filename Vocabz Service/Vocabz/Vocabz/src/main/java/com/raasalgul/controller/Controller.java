@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,34 +58,34 @@ public class Controller {
 //	@Autowired
 //	CustomUserDetailService customUserDetailService;
 	@RequestMapping("/decks/get-all")
-	public Set<Deck> getAllDecks() throws GenericException
+	public Set<Deck> getAllDecks(@RequestHeader("userId") String userId) throws GenericException
 	{
-		return deckService.getAllDecks();
+		return deckService.getAllDecks(userId);
 	}
 	@GetMapping("/decks/card/{deck}")
-	public DeckCardsInfo getDailyUpdateTasks(@PathVariable String deck) throws GenericException
+	public DeckCardsInfo getDailyUpdateTasks(@PathVariable String deck,@RequestHeader("userId") String userId) throws GenericException
 	{
-		return deckService.getCardsOfDeck(deck);
+		return deckService.getCardsOfDeck(deck,userId);
 	}
 	@PostMapping("/card/status-update")
-	public CardStatus cardStatusUpdate(@RequestBody CardStatus cardStatus) throws GenericException
+	public CardStatus cardStatusUpdate(@RequestBody CardStatus cardStatus,@RequestHeader("userId") String userId) throws GenericException
 	{
-		return cardService.cardStatusUpdate(cardStatus);
+		return cardService.cardStatusUpdate(cardStatus,userId);
 	}
 	@DeleteMapping("/card/delete")
-	public DailyStats cardDelete(@RequestBody DeckCardsInfo deck) throws GenericException
+	public DailyStats cardDelete(@RequestBody DeckCardsInfo deck,@RequestHeader("userId") String userId) throws GenericException
 	{
-		return cardService.cardDelete(deck);
+		return cardService.cardDelete(deck,userId);
 	}
 	@DeleteMapping("deck/delete/{deck}")
-	public String deckDelete(@PathVariable String deck) throws GenericException
+	public String deckDelete(@PathVariable String deck,@RequestHeader("userId") String userId) throws GenericException
 	{
-		return deckService.deckDelete(deck);
+		return deckService.deckDelete(deck,userId);
 	}
 	@PostMapping("update/add-edit")
-	public DeckCardsInfo updateDeckCardInfo(@RequestBody DeckCardsInfo deckCardInfo) throws GenericException
+	public DeckCardsInfo updateDeckCardInfo(@RequestBody DeckCardsInfo deckCardInfo,@RequestHeader("userId") String userId) throws GenericException
 	{
-		return updateService.updateDeckCardInfo(deckCardInfo);
+		return updateService.updateDeckCardInfo(deckCardInfo,userId);
 	}
 //	@PostMapping("/sign-up")
 //	public String securedHello(@RequestBody Users users) throws GenericException

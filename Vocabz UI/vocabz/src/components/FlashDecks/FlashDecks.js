@@ -51,7 +51,6 @@ flexBasis:'15%'
     top:'40%'
   }
 });
-let topicIndex=0;
 export default function FlashDecks() {
   const history = useHistory();
   const classes = useStyles();
@@ -64,6 +63,8 @@ useEffect(()=>{
   // fetch(`${serviceURLHost}/vocabz-home/decks/get-all`,{ headers: authHeader() }).then((response) => {
   //   return response.json();
   // })
+  console.log(authHeader());
+  console.log(JSON.stringify(authHeader()));
   axios.get(`${serviceURLHost}/vocabz-home/decks/get-all`, { headers: authHeader() })
   .then((myJson) => {
     setData(myJson);

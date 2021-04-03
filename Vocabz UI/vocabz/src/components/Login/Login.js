@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import AuthService from "../services/auth.service";
 import './Login.css'
+import { makeStyles } from '@material-ui/core/styles';
 const required = value => {
   if (!value) {
     return (
@@ -14,51 +15,57 @@ const required = value => {
     );
   }
 };
+const useStyles = makeStyles(() => ({
+  buttonRoot: {
+    margin: '10px',
+    width: '200px'
+  },
+  textFieldRoot:{
+    margin: '10px',
+    width: '300px'
+  }
+}));
+export default function Login(props) {
+  const [username, setUsername] = React.useState('');
+  const [password,setPassword]=React.useState('');
+  const [message, setMessage] = React.useState('');
+  const [loading,setLoading]=React.useState(false);
+  // constructor(props) {
+  //   super(props);
+  //   this.handleLogin = this.handleLogin.bind(this);
+  //   this.onChangeUsername = this.onChangeUsername.bind(this);
+  //   this.onChangePassword = this.onChangePassword.bind(this);
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
+  //   this.state = {
+  //     username: "",
+  //     password: "",
+  //     loading: false,
+  //     message: ""
+  //   };
+  // }
 
-    this.state = {
-      username: "",
-      password: "",
-      loading: false,
-      message: ""
-    };
+  function onChangeUsername(e) {
+    setUsername(e.target.value);
   }
 
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    });
+  function onChangePassword(e) {
+    setPassword(e.target.value);
   }
-
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    });
-  }
-  handleSignup(){
+  function handleSignup(){
     window.location.href="/signup"
     // this.props.history.push("/signup");
   }
-  handleLogin(e) {
+  function handleLogin(e) {
     e.preventDefault();
+    setMessage("");
+    setLoading(true);
 
-    this.setState({
-      message: "",
-      loading: true
-    });
-
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
+    // form.validateAll();
+console.log(message.length)
+    if (message.length === 0) {
+      AuthService.login(username,password).then(
         () => {
-          this.props.history.push("/flash-decks");
+          props.history.push("/flash-decks");
           window.location.reload();
         },
         error => {
@@ -68,21 +75,15 @@ export default class Login extends Component {
               error.response.data.message) ||
             error.message ||
             error.toString();
-
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
+            setMessage(resMessage);
+            setLoading(false);
         }
       );
-    } else {
-      this.setState({
-        loading: false
-      });
+    } else { 
+      setLoading(false);
     }
   }
-
-  render() {
+  const classes = useStyles();
     return (
       <div className="col-md-12">
         <div className="login-card login-card-container">
@@ -93,73 +94,87 @@ export default class Login extends Component {
           />
 
           <Form
-            onSubmit={this.handleLogin}
-            ref={c => {
-              this.form = c;
-            }}
+            onSubmit={handleLogin}
+            // ref={c => {
+            //   form = c;
+            // }}
           >
             <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Input
+              {/* <label htmlFor="username">Username</label> */}
+              <TextField
                 type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
+               classes={
+                 {root:classes.textFieldRoot}
+               }
+                label="Username"
+                variant="outlined"
+                value={username}
+                onChange={onChangeUsername}
                 validations={[required]}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
+              {/* <label htmlFor="password">Password</label> */}
+              <TextField
                 type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
+                // className="form-control"
+                classes={
+                  {root:classes.textFieldRoot}
+                }
+                variant="outlined"
+                label="password"
+                value={password}
+                onChange={onChangePassword}
                 validations={[required]}
               />
             </div>
 
             <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
+              <Button
+                classes={{
+                  root:classes.buttonRoot
+                }}
+                color={"primary"}
+                variant={"contained"}
+                disabled={loading}
+                onClick={handleLogin}
               >
-                {this.state.loading && (
+                {loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
                 <span>Login</span>
-              </button>
+              </Button>
             </div>
 
-            {this.state.message && (
+            {message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">
-                  {this.state.message}
+                  {message}
                 </div>
               </div>
             )}
             <CheckButton
               style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
+              // ref={c => {
+              //   checkBtn = c;
+              // }}
             />
           </Form>
-          <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-                onClick={this.handleSignup}
+          <Button
+              classes={{
+                root:classes.buttonRoot
+              }}
+              color={"primary"}
+              variant={"contained"}
+              onClick={handleSignup}
               >
-                {this.state.loading && (
+                {loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
                 <span>Signup</span>
-              </button>
+              </Button>
         </div>
       </div>
     );
-  }
 }

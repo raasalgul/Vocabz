@@ -20,10 +20,10 @@ import com.raasalgul.repository.DailyStatsRepository;
 public class DeckService {
 	@Autowired
 	DailyStatsRepository dailyStatsRepository;
-	public Set<Deck> getAllDecks() throws GenericException {
+	public Set<Deck> getAllDecks(String userId) throws GenericException {
 		Set<Deck> desks=new HashSet<>();
 		try {
-			dailyStatsRepository.findAll().forEach(dailyStat->{
+			dailyStatsRepository.findByUserId(userId).forEach(dailyStat->{
 				Deck deck=new Deck(dailyStat.getDeck(),dailyStat.getAddedLogon());
 				desks.add(deck);
 			});
@@ -35,11 +35,11 @@ public class DeckService {
 		return desks;
 	}
 
-	public DeckCardsInfo getCardsOfDeck(String deck) throws GenericException {
+	public DeckCardsInfo getCardsOfDeck(String deck, String userId) throws GenericException {
 		DeckCardsInfo deckCardsInfo=new DeckCardsInfo();
 		try {
 			List<Card> cards=new ArrayList<>();
-			List<DailyStats> deckInfos=dailyStatsRepository.findByDeck(deck);
+			List<DailyStats> deckInfos=dailyStatsRepository.findByDeck(deck).parallelStream().filter(v->v.getUserId().equals(userId)).collect(Collectors.toList());
 			System.out.println(deckInfos);
 			deckInfos=deckInfos.stream().sorted((v1,v2)->Float.compare(v1.getStatus().get(v1.getStatus().size()-1).getLevel(),v2.getStatus().get(v2.getStatus().size()-1).getLevel())).collect(Collectors.toList());
 			deckInfos=deckInfos.stream().sorted((v1,v2)->Integer.compare(v1.getStatus().size(),v2.getStatus().size())).collect(Collectors.toList());
@@ -58,9 +58,10 @@ public class DeckService {
 		return deckCardsInfo;
 	}
 
-	public String deckDelete(String deck) throws GenericException {
+	public String deckDelete(String deck, String userId) throws GenericException {
 		try {
 				dailyStatsRepository.findByDeck(deck).forEach(deckInfo->{
+					if(deckInfo.getUserId().equals(userId))
 				dailyStatsRepository.deleteById(deckInfo.get_id());
 			});
 		}

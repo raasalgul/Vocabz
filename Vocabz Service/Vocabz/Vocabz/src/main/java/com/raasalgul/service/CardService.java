@@ -19,10 +19,11 @@ import com.raasalgul.repository.DailyStatsRepository;
 public class CardService {
 	@Autowired
 	DailyStatsRepository dailyStatsRepository;
-	public CardStatus cardStatusUpdate(CardStatus cardStatus) throws GenericException {
+	public CardStatus cardStatusUpdate(CardStatus cardStatus, String userId) throws GenericException {
 		try {
 			List<DailyStats> dailyStats=dailyStatsRepository.findByDeck(cardStatus.getDeck());
 			Optional<DailyStats> dailyStat=dailyStats.stream()
+					.filter(v->v.getUserId().equals(userId))
 					.filter(card->card.getCard().equals(cardStatus.getCard()))
 					.findFirst();
 			List<Status> statuses=dailyStat.get().getStatus();
@@ -56,11 +57,11 @@ public class CardService {
 		return cardStatus;
 	}
 
-	public DailyStats cardDelete(DeckCardsInfo deck) throws GenericException {
+	public DailyStats cardDelete(DeckCardsInfo deck, String userId) throws GenericException {
 		Optional<DailyStats> dailyStat;
 		try {
 			List<DailyStats> cards=dailyStatsRepository.findByDeck(deck.getDeck());
-			dailyStat=cards.stream().filter(card->card.getCard()!=null)
+			dailyStat=cards.stream().filter(v->v.getUserId().equals(userId)).filter(card->card.getCard()!=null)
 					.filter(card->card.getCard().equals(deck.getCards().get(0).getCard()))
 			.findAny();
 			dailyStatsRepository.deleteById(dailyStat.get().get_id());

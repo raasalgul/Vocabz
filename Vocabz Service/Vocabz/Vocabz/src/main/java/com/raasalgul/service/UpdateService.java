@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,9 @@ import com.raasalgul.repository.DailyStatsRepository;
 public class UpdateService {
 	@Autowired
 	DailyStatsRepository dailyStatsRepository;
-	public DeckCardsInfo updateDeckCardInfo(DeckCardsInfo deckCardInfo) throws GenericException {
+	public DeckCardsInfo updateDeckCardInfo(DeckCardsInfo deckCardInfo, String userId) throws GenericException {
 		try {
-			List<DailyStats>cards=dailyStatsRepository.findByDeck(deckCardInfo.getDeck());
+			List<DailyStats>cards=dailyStatsRepository.findByDeck(deckCardInfo.getDeck()).parallelStream().filter(v->v.getUserId().equals(userId)).collect(Collectors.toList());
 			if(cards.size()>0)
 			{
 				if(deckCardInfo.getCards().size()>0)
@@ -43,7 +44,7 @@ public class UpdateService {
 					card.setDeck(cards.get(0).getDeck());
 					card.setCard(updateCard.getCard());
 					card.setMeaning(updateCard.getMeaning());
-					card.setUserId("1");
+					card.setUserId(userId);
 					card.setAddedDate(LocalDate.now());
 					card.setAddedLogon(LocalDateTime.now());
 					Status status=new Status(100f,LocalDateTime.now());
@@ -58,7 +59,7 @@ public class UpdateService {
 				dailyStat.setAddedDate(LocalDate.now());
 				dailyStat.setAddedLogon(LocalDateTime.now());
 				dailyStat.setDeck(deckCardInfo.getDeck());
-				dailyStat.setUserId("1");
+				dailyStat.setUserId(userId);
 				if(null!=deckCardInfo.getCards()&&deckCardInfo.getCards().size()>0)
 				{
 				dailyStat.setCard(deckCardInfo.getCards().get(0).getCard());

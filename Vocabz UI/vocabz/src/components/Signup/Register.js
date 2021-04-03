@@ -1,107 +1,115 @@
-import React, { Component } from "react";
+import React from "react";
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import './Register.css'
 import AuthService from "../services/auth.service";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
-const required = value => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
+const useStyles = makeStyles(() => ({
+  buttonRoot: {
+    margin: '10px',
+    width: '200px'
+  },
+  textFieldRoot:{
+    margin: '10px',
+    width: '300px'
   }
-};
+}));
 
-const email = value => {
+const vem = value => {
   if (!isEmail(value)) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
-      </div>
-    );
+    return 'This is not a valid email.';
   }
+  else
+  return ''
 };
 
 const vusername = value => {
   if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
-      </div>
-    );
+    return 'The userName must be between 3 and 20 characters.'
   }
+  else
+  return ''
 };
 
 const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
-      </div>
-    );
+    return 'The password must be between 6 and 40 characters.';
   }
+  else
+  return ''
 };
 
-export default class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.handleRegister = this.handleRegister.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-
-    this.state = {
-      username: "",
-      email: "",
-      password: "",
-      successful: false,
-      message: ""
-    };
+export default function Register(props) {
+  const [userName, setUserName] = React.useState('');
+  const [password,setPassword]=React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [message, setMessage] = React.useState('');
+  const [successful,setSuccessful]=React.useState(false);
+  function onChangeUsername(e) {
+    setUserName(e.target.value);
   }
 
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    });
+  function onChangeEmail(e) {
+      setEmail(e.target.value);
   }
-
-  onChangeEmail(e) {
-    this.setState({
-      email: e.target.value
-    });
+function validateAll()
+{
+  let mes='';
+  setMessage(mes);
+  console.log(mes);
+  console.log(message)
+  if(mes.length<=0)
+  mes=vusername(userName);
+  if(mes.length<=0)
+  {
+  mes=vusername(firstName);
+  if(mes.length>0)
+  mes=mes.replace('userName','firstName');
   }
-
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    });
+  if(mes.length<=0)
+  mes=vem(email);
+  if(mes.length<=0)
+  mes=vpassword(userName);
+  setMessage(mes);
+  if(mes.length===0)
+  return true;
+  else
+  return false;
+}
+  function onChangePassword(e) {
+    setPassword(e.target.value);
   }
-
-  handleRegister(e) {
+  function onChangeFistname(e){
+    setFirstName(e.target.value);
+  }
+  function onChangeLastname(e){
+    setLastName(e.target.value);
+  }
+  function handleRegister(e) {
+    validateAll();
     e.preventDefault();
+    setMessage("");
+    setSuccessful(false);
 
-    this.setState({
-      message: "",
-      successful: false
-    });
-
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
+    // this.form.validateAll();
+    console.log(message)
+    if (message.length === 0 &&validateAll()) {
       AuthService.register(
-        this.state.username,
-        this.state.email,
-        this.state.password
+       userName,
+       email,
+       password,
+       firstName,
+       lastName
       ).then(
         response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
+          setMessage(response.data.message);
+          setSuccessful(true);
         },
         error => {
           const resMessage =
@@ -110,17 +118,13 @@ export default class Register extends Component {
               error.response.data.message) ||
             error.message ||
             error.toString();
-
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
+            setMessage(resMessage);
+            setSuccessful(false);
         }
       );
     }
   }
-
-  render() {
+    const classes = useStyles();
     return (
       <div className="col-md-12">
         <div className="login-card login-card-container">
@@ -131,78 +135,98 @@ export default class Register extends Component {
           />
 
           <Form
-            onSubmit={this.handleRegister}
-            ref={c => {
-              this.form = c;
-            }}
+            onSubmit={handleRegister}
+            // ref={c => {
+            //   this.form = c;
+            // }}
           >
-            {!this.state.successful && (
+            {!successful && (
               <div>
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                    validations={[required, vusername]}
-                  />
-                </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <Input
+                  <TextField
                     type="text"
-                    className="form-control"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    validations={[required, email]}
+                    label="Username"
+                    classes={
+                      {root:classes.textFieldRoot}
+                    }
+                    variant="outlined"
+                    value={userName}
+                    onChange={onChangeUsername}
                   />
-                </div>
+                <TextField
+                    type="text"
+                    label="Firstname"
+                    classes={
+                      {root:classes.textFieldRoot}
+                    }
+                    variant="outlined"
+                    value={firstName}
+                    onChange={onChangeFistname}
+                  />
+                    <TextField
+                    type="text"
+                    label="Lastname"
+                    classes={
+                      {root:classes.textFieldRoot}
+                    }
+                    variant="outlined"
+                    value={lastName}
+                    onChange={onChangeLastname}
+                  />
 
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Input
+                  <TextField
+                    type="text"
+                    classes={
+                      {root:classes.textFieldRoot}
+                    }
+                    label="Email"
+                    variant="outlined"
+                    value={email}
+                    onChange={onChangeEmail}
+                   />
+
+
+
+                  <TextField
                     type="password"
-                    className="form-control"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                    validations={[required, vpassword]}
+                    classes={
+                      {root:classes.textFieldRoot}
+                    }
+                    variant="outlined"
+                    label="password"
+                    value={password}
+                    onChange={onChangePassword}
                   />
-                </div>
 
-                <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
+                  <Button  classes={{
+                  root:classes.buttonRoot
+                }}
+                onClick={handleRegister}
+                color={"primary"}
+                variant={"contained"}>Sign Up</Button>
                 </div>
-              </div>
             )}
 
-            {this.state.message && (
-              <div className="form-group">
+            {message && (
                 <div
                   className={
-                    this.state.successful
+                    successful
                       ? "alert alert-success"
                       : "alert alert-danger"
                   }
                   role="alert"
                 >
-                  {this.state.message}
+                  {message}
                 </div>
-              </div>
             )}
             <CheckButton
               style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
+              // ref={c => {
+              //   checkBtn = c;
+              // }}
             />
           </Form>
         </div>
       </div>
     );
-  }
 }

@@ -10,4 +10,5 @@ import com.raasalgul.dto.DailyStats;
 
 public interface DailyStatsRepository extends MongoRepository<DailyStats,ObjectId>{
 	List<DailyStats> findByDeck(String deck);
+	List<DailyStats> findByUserId(String userId);
 }
