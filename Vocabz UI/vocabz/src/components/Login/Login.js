@@ -30,20 +30,7 @@ export default function Login(props) {
   const [password,setPassword]=React.useState('');
   const [message, setMessage] = React.useState('');
   const [loading,setLoading]=React.useState(false);
-  // constructor(props) {
-  //   super(props);
-  //   this.handleLogin = this.handleLogin.bind(this);
-  //   this.onChangeUsername = this.onChangeUsername.bind(this);
-  //   this.onChangePassword = this.onChangePassword.bind(this);
-
-  //   this.state = {
-  //     username: "",
-  //     password: "",
-  //     loading: false,
-  //     message: ""
-  //   };
-  // }
-
+  
   function onChangeUsername(e) {
     setUsername(e.target.value);
   }
