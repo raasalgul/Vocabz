@@ -75,7 +75,7 @@ function validateAll()
   if(mes.length<=0)
   mes=vem(email);
   if(mes.length<=0)
-  mes=vpassword(userName);
+  mes=vpassword(password);
   setMessage(mes);
   if(mes.length===0)
   return true;
