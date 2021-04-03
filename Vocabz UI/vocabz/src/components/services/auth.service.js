@@ -1,5 +1,5 @@
 import axios from "axios";
-import serviceURLHost from "../../constants/Constant"
+import {serviceURLHost} from "../../constants/Constant"
 const API_URL = `${serviceURLHost}/api/auth/`;
 
 class AuthService {
