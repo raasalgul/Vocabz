@@ -69,6 +69,19 @@ const useStyles = makeStyles({
      }
 });
 export default function FlashCard({flashcard,flashdeck,removeCard}) {
+  // useEffect(()=>{
+  //   let splitedWords=flashcard.meaning.split(" ");
+  //   let word="";
+  //   splitedWords.forEach((v,k)=>{
+  //     if((k+1)%5===0)
+  //     {
+  //       word+="\n";
+  //     }
+  //       word+=v+" ";
+  //   });
+  //   flashcard.meaning=word;
+  
+  // },[]);
     const [flip, setFlip] = useState(false);
     const classes = useStyles();
     async function handleCross()
@@ -118,7 +131,7 @@ export default function FlashCard({flashcard,flashdeck,removeCard}) {
     }
     return (
       <Grid container direction="column" spacing={0}>
-
+{  console.log("word "+flashcard.meaning)}
 {/* <div
       className={`card ${flip ? 'flip' : ''}`}
     //   style={{ height: height }}
@@ -128,17 +141,18 @@ export default function FlashCard({flashcard,flashdeck,removeCard}) {
           alignItems="flex-end">
       <Button variant='contained' onClick={handleCross}>&#10060;</Button>
       </Grid >
-      <Grid item xs={12}>
-      <div className="front">
+      <Grid container wrap="nowrap" xs={12} justify="center">
+      {/* <div className="front">
         <h1>{flashcard.card}</h1> 
-      </div>
+      </div> */}
+      {!flip?<Typography className="front" variant="h5">{flashcard.card}</Typography>:
+      <Typography className="back" variant="body1">{flashcard.meaning}</Typography>
+    }
       </Grid>
-      <Grid container wrap="nowrap" spacing={2}>
+      {/* <Grid  spacing={2}>
       <Grid item xs>
-      <Typography className="back">{flashcard.meaning}</Typography>
-      {/* <div className="back"><h3>{}</h3></div> */}
       </Grid>
-      </Grid>
+      </Grid> */}
       {/* <div className={classes.card_button}> */}
       <Grid item xs={12} sm container>
       <Grid item xs container>

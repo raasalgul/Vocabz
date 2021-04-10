@@ -159,11 +159,11 @@ return (
                        {data.deck}
                        </Typography>
             <CardContent>
-                <Grid container spacing={3}>
+                <Grid container xs={12} spacing={3} justify="center">
                 {
                   Object.keys(data).length !== 0?data.cards.map((value,index)=>{
                     return(
-                     <Grid item key={index} xs={4} sm={2}>
+                     <Grid item key={index}>
                     <FlashCard flashcard={value} flashdeck={data.deck} removeCard={removeCard}/>
                      </Grid>);
                 }
