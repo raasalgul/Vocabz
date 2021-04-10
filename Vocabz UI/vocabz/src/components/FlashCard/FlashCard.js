@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect,useState} from "react";
-import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -10,21 +10,21 @@ import {serviceURLHost} from "../../constants/Constant"
 import authHeader from '../services/auth-header';
 const useStyles = makeStyles({
   cross:{
-    position: 'relative',
+    // position: 'relative',
     // marginTop:'99%'
-    top:'-8.2em',
-    right:'-7.3em'
+    // top:'-8.2em',
+    // right:'-7.3em'
   },
     card_button:{
-        position: 'relative',
+        // position: 'relative',
       // marginTop:'99%'
-      top:'6em',
-      right:'2em'
+      // top:'6em',
+      // right:'2em'
       },
       cross_button:{
         backgroundColor: "#FF6347",
         color:"#ffffff",
-        float:"left",
+        // float:"left",
         margin:5, 
         borderRadius:"100px",
         minWidth:"min-content", 
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
      minu_button:{
       backgroundColor: "#cbe009",
       color:"#ffffff",
-      float:"left",
+      // float:"left",
       margin:5, 
       borderRadius:"100px",
       minWidth:"min-content", 
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
      view_button:{
         backgroundColor: "#41658A",
         color:"#ffffff",
-        float:"center",
+        // float:"center",
         margin:10,
         '&:hover': {
           backgroundColor:'#41658A',
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
       tick_button:{
         backgroundColor: "#006400",
         color:"#ffffff",
-        float:"right",
+        // float:"right",
         margin:5,
         borderRadius:"100px",
         minWidth:"min-content",
@@ -117,22 +117,45 @@ export default function FlashCard({flashcard,flashdeck,removeCard}) {
 
     }
     return (
-<div
+      <Grid container direction="column" spacing={0}>
+
+{/* <div
       className={`card ${flip ? 'flip' : ''}`}
     //   style={{ height: height }}
-    >
-       <div className={classes.cross}>
+    > */}
+       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={0} alignItems="flex-start"  onClick={() => setFlip(!flip)}>
+        <Grid item direction="column" container justify="flex-end"
+          alignItems="flex-end">
       <Button variant='contained' onClick={handleCross}>&#10060;</Button>
-      </div>
-      <div className="front" onClick={() => setFlip(!flip)}>
+      </Grid >
+      <Grid item xs={12}>
+      <div className="front">
         <h1>{flashcard.card}</h1> 
       </div>
-      <div className="back"   onClick={() => setFlip(!flip)}><h3>{flashcard.meaning}</h3></div>
-      <div className={classes.card_button}>
+      </Grid>
+      <Grid container wrap="nowrap" spacing={2}>
+      <Grid item xs>
+      <Typography className="back">{flashcard.meaning}</Typography>
+      {/* <div className="back"><h3>{}</h3></div> */}
+      </Grid>
+      </Grid>
+      {/* <div className={classes.card_button}> */}
+      <Grid item xs={12} sm container>
+      <Grid item xs container>
+      <Grid item xs>
 <Button size="small" variant="contained" color="default" className={classes.cross_button} onClick={()=>handleNext("failure")}>&#x2717;</Button>
+</Grid>
+<Grid item xs>
 <Button size="small" variant="contained" color="default" className={classes.minu_button} onClick={()=>handleNext("neutral")}>&#8722;</Button>
+</Grid>
+<Grid item xs>
 <Button size="small" variant="contained" color="default" className={classes.tick_button} onClick={()=>handleNext("sucess")}>&#10003;</Button>
-</div>
-    </div>
+</Grid>
+</Grid>
+</Grid>
+{/* </div> */}
+</Grid>
+    {/* </div> */}
+    </Grid>
     );
 }
