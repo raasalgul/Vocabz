@@ -37,17 +37,18 @@ const useStyles = makeStyles({
     },
   },
   MuiGridGridXs3:{
-flexBasis:'15%'
+// flexBasis:'15%'
   },
   root: {
     '& .MuiGrid-grid-xs-3': {
-      // '& > $item': {
-        flexBasis:'15%'
-      // },
+      '& > $item': {
+        maxWidth:'15%',
+        margin:'1%'
+      },
   },
   '& .MuiButton-outlined':{
-    position:'relative',
-    left:'42.0em'
+    // position:'relative',
+    // left:'42.0em'
   },
   '& .MuiSvgIcon-root':{
     
@@ -63,13 +64,14 @@ flexBasis:'15%'
   },
   root_cardContent:{
     backgroundImage:'linear-gradient(to bottom,#7F8086,#080808);',
-    minHeight:'55em',
+    margin:20,
+    // minHeight:'55em',
     // maxHeight: 500,
     overflowY:'scroll'
   },
   topic_style: {
     color: "#FFF",
-    fontSize: 32,
+    fontSize: '2em',
     fontFamily:"Andale Mono",
     padding:20
   },
@@ -78,7 +80,6 @@ flexBasis:'15%'
     top:'40%'
   }
 });
-let topicIndex=0;
 export default function FlashCards(props) {
   const [spin, setSpin] = useState(0);
   const history = useHistory();
@@ -86,7 +87,7 @@ export default function FlashCards(props) {
   
 const [data,setData]=useState({});
 const [deck,setDeck]=useState("");
-const [load,setLoad]=useState(true);
+const [load,setLoad]=useState(false);
 useEffect(()=>{
   fetch(`${serviceURLHost}/vocabz-home/decks/card/${props.location.state.deckName}`,{ headers: authHeader() }).then((response) => {
     return response.json();
@@ -142,23 +143,27 @@ useEffect(()=>{
   }
 return (
   <div>
-  {load?<div className={classes.root}>
+  {load?<Grid  className={classes.root}>
   <AutorenewIcon
        className={spin ? classes.spin : classes.refresh}
        onClick={refreshCanvas}
        spin={spin}
     />
+     <Grid container spacing={1}>
             <Card className={classes.root_cardContent}>
+            <Grid container justify="flex-end"
+          alignItems="flex-end">
             <Button variant='outlined' onClick={()=>{history.push(`/flash-decks`)}}>&#10060;</Button>
-            <Typography variant="h5" component="h2" className={classes.topic_style}>
+            </Grid>
+            <Typography className={classes.topic_style}>
                        {data.deck}
                        </Typography>
             <CardContent>
-                <Grid container spacing={1}>
+                <Grid container xs={12} spacing={3} justify="center">
                 {
                   Object.keys(data).length !== 0?data.cards.map((value,index)=>{
                     return(
-                     <Grid item key={index} item xs={3}>
+                     <Grid item key={index}>
                     <FlashCard flashcard={value} flashdeck={data.deck} removeCard={removeCard}/>
                      </Grid>);
                 }
@@ -178,8 +183,8 @@ return (
             </Grid>
             </CardContent>
           </Card>
-   </div>:null}
-
+          </Grid>
+          </Grid>:null}
    </div>
   );
   
