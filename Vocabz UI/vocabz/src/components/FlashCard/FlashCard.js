@@ -130,46 +130,26 @@ export default function FlashCard({flashcard,flashdeck,removeCard}) {
 
     }
     return (
-      <Grid container direction="column" spacing={0}>
-{  console.log("word "+flashcard.meaning)}
-{/* <div
-      className={`card ${flip ? 'flip' : ''}`}
-    //   style={{ height: height }}
-    > */}
-       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={0} alignItems="flex-start"  onClick={() => setFlip(!flip)}>
-        <Grid item direction="column" container justify="flex-end"
+      <>
+        {/* <Grid className={`background`} container direction="column" justify="flex-end"
+          alignItems="flex-end"> */}
+             <Grid container direction="column" justify="flex-end"
           alignItems="flex-end">
       <Button variant='contained' onClick={handleCross}>&#10060;</Button>
-      </Grid >
-      <Grid container wrap="nowrap" xs={12} justify="center">
-      {/* <div className="front">
-        <h1>{flashcard.card}</h1> 
-      </div> */}
+      </Grid>
+       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={0} alignItems="flex-start"  onClick={() => setFlip(!flip)}>
+      <Grid item wrap="nowrap" xs={12} justify="center">
       {!flip?<Typography className="front" variant="h5">{flashcard.card}</Typography>:
       <Typography className="back" variant="body1">{flashcard.meaning}</Typography>
     }
       </Grid>
-      {/* <Grid  spacing={2}>
-      <Grid item xs>
-      </Grid>
-      </Grid> */}
-      {/* <div className={classes.card_button}> */}
-      <Grid item xs={12} sm container>
-      <Grid item xs container>
-      <Grid item xs>
+      <Grid container item direction="row" justify="space-between"
+          alignItems="flex-end">
 <Button size="small" variant="contained" color="default" className={classes.cross_button} onClick={()=>handleNext("failure")}>&#x2717;</Button>
-</Grid>
-<Grid item xs>
 <Button size="small" variant="contained" color="default" className={classes.minu_button} onClick={()=>handleNext("neutral")}>&#8722;</Button>
-</Grid>
-<Grid item xs>
 <Button size="small" variant="contained" color="default" className={classes.tick_button} onClick={()=>handleNext("sucess")}>&#10003;</Button>
 </Grid>
 </Grid>
-</Grid>
-{/* </div> */}
-</Grid>
-    {/* </div> */}
-    </Grid>
+</>
     );
 }
