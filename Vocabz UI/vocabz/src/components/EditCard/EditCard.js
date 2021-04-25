@@ -154,7 +154,10 @@ export default function EditCard(props) {
       referrerPolicy: 'no-referrer', // no-referrer, *client
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
-    return await response.json(); // parses JSON response into native JavaScript objects
+    return await response.json().then(()=>{
+      setCard('');
+      setMeaning('');
+    }); // parses JSON response into native JavaScript objects
   
   }
   return (

@@ -65,7 +65,8 @@ const useStyles = makeStyles({
   root_cardContent:{
     backgroundImage:'linear-gradient(to bottom,#7F8086,#080808);',
     margin:20,
-    // minHeight:'55em',
+    minHeight:'95%',
+    minWidth:'95%',
     // maxHeight: 500,
     overflowY:'scroll'
   },
@@ -170,7 +171,7 @@ return (
                 )
                :null
                 }
-                 <Grid item xs={3}>
+                 <Grid item>
               <Fab
                 size="large"
                 aria-label="Add"
