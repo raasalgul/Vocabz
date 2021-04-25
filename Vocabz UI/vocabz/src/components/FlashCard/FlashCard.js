@@ -137,7 +137,7 @@ export default function FlashCard({flashcard,flashdeck,removeCard}) {
           alignItems="flex-end">
       <Button variant='contained' onClick={handleCross}>&#10060;</Button>
       </Grid>
-       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={0} alignItems="flex-start"  onClick={() => setFlip(!flip)}>
+       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={0} alignItems="flex-end"  onClick={() => setFlip(!flip)}>
       <Grid item wrap="nowrap" xs={12} justify="center">
       {!flip?<Typography className="front" variant="h5">{flashcard.card}</Typography>:
       <Typography className="back" variant="body1">{flashcard.meaning}</Typography>
