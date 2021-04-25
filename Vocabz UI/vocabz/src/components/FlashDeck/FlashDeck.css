@@ -4,132 +4,23 @@
     --dark: #212121;
     --light: #F3F3F3;
   }
-  
-/*  * {
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: montserrat, sans-serif;
-    width: 100%;
-    min-height: 100vh;
-  }
-  
-  .card {
-    // margin: 100px auto 0;
-    width: 400px;
-    height: 600px;
-    perspective: 1000px;
-  }
-  
-  .card__inner {
-    width: 100%;
-    height: 100%;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    position: relative;
-  }
-  
-  .card__inner.is-flipped {
-    transform: rotateY(180deg);
-  }
-  
-  
-  .card__face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card__face--front {
-    background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .card__face--front h2 {
-    color: #FFF;
-    font-size: 32px;
-  }
-  
-  .card__face--back {
-    background-color: var(--light);
-    transform: rotateY(180deg);
-  }
-  
-  .card__content {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .card__header {
-    position: relative;
-    padding: 30px 30px 40px;
-  }
-  
-  .card__header:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary) 115%);
-    z-index: -1;
-    border-radius: 0px 0px 50% 0px;
-  }
-  
-  .pp {
-    display: block;
-    width: 128px;
-    height: 128px;
-    margin: 0 auto 30px;
-    border-radius: 50%;
-    background-color: #FFF;
-    border: 5px solid #FFF;
-    object-fit: cover;
-  }
-  
-  .card__header h2 {
-    color: #FFF;
-    font-size: 32px;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  
-  .card__body {
-    padding: 30px;
-  }
-  
-  .card__body h3 {
-    color: var(--dark);
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-  
-  .card__body p {
-    color: var(--dark);
-    font-size: 18px;
-    line-height: 1.4;
-  }*/
-
-  .card {
-    display: flex;
+  .card-deck {
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    box-shadow: 10px 10px 5px #FFF;
+    position: relative; */
+    text-decoration:none;
+    display:absolute;
+    display:block;
+    width:210px;
+    height:80px;
+    background: #fff;
+    text-align:left;
+    padding-left:20px;
+    transform: rotate(-30deg) skewX(25deg) translate(0,0);
+    transition:0.5s;
+    box-shadow:-20px 20px 10px rgba(0,0,0,0.5);
+    /* box-shadow: 10px 10px 5px #FFF;
     border-radius: .25rem;
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
@@ -139,29 +30,52 @@
     transform-style: preserve-3d;
     transition: 150ms;
     cursor: pointer;
-    transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0));
+    transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0)); */
   }
-  .card:hover {
-    --translate-y: -2px;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+  .card-deck:hover {
+    /* --translate-y: -2px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5); */
+    transform:rotate(-30deg) skew(25deg) translate(20px,-15px);
+    box-shadow: -50px 50px 50px rgba(0,0,0,0.5);
   }
-  
-  .card.flip {
+  .card-deck:before {
+    content:'';
+    position:absolute;
+    top:10px;
+    left:-20px;
+    height:100%;
+    width:20px;
+    background:#b1b1b1;
+    transform:0.5s;
+    transform:rotate(0deg) skewY(-45deg);
+  }
+  .card-deck:after {
+    content:'';
+    position:absolute;
+    bottom:-20px;
+    left:-10px;
+    height:20px;
+    width:100%;
+    background:#b1b1b1;
+    transform:0.5s;
+    transform:rotate(0deg) skewX(-45deg);
+  }
+  .card-deck.flip {
     --rotate-y: 180deg;
   }
   
-  .card .front {
+  .card-deck .front {
     /* left: 0; */
   }
   
-  .card .front,
-  .card .back {
+  .card-deck .front,
+  .card-deck .back {
     position: absolute;
     padding: 1rem;
     backface-visibility: hidden;
   }
   
-  .card .back {
+  .card-deck .back {
     transform: rotateY(180deg);
   }
 
@@ -178,3 +92,12 @@
   .flashcard-option:first-child {
     margin-top: 0;
   }
+.word
+{
+	padding:0;
+	margin:0;
+	top:30px;
+	color:#333;
+	letter-spacing:4px;
+	transition:0.5s
+}

@@ -130,13 +130,13 @@ export default function FlashCard({flashcard,flashdeck,removeCard}) {
 
     }
     return (
-      <Grid container direction="column" spacing={0}>
+      <Grid container direction="column" spacing={1}>
 {  console.log("word "+flashcard.meaning)}
 {/* <div
       className={`card ${flip ? 'flip' : ''}`}
     //   style={{ height: height }}
     > */}
-       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={0} alignItems="flex-start"  onClick={() => setFlip(!flip)}>
+       <Grid className={`card ${flip ? 'flip' : ''}`} container spacing={1} alignItems="flex-start"  onClick={() => setFlip(!flip)}>
         <Grid item direction="column" container justify="flex-end"
           alignItems="flex-end">
       <Button variant='contained' onClick={handleCross}>&#10060;</Button>

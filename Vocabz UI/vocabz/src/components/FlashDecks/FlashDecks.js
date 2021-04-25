@@ -20,6 +20,7 @@ const useStyles = makeStyles({
 flexBasis:'15%'
   },
   root: {
+    background:'#ccc',
     '& .MuiGrid-grid-xs-3': {
       // '& > $item': {
         flexBasis:'15%'
@@ -35,7 +36,8 @@ flexBasis:'15%'
    alignItems:'flex-end'
   },
   root_cardContent:{
-    backgroundImage:'linear-gradient(to bottom,#7F8086,#080808);',
+    // backgroundImage:'linear-gradient(to bottom,#7F8086,#080808);',
+    background:'#ccc',
     minHeight:550,
     // maxHeight: 500,
     overflowY:'scroll'
@@ -106,11 +108,11 @@ return (
         </div>
             <Card>
             <CardContent className={classes.root_cardContent}>
-                <Grid container spacing={1}>
+                <Grid>
                 {
                   Object.keys(data).length !== 0?data.data.map((value,index)=>{
                     return(
-                     <Grid item key={index} item xs={3}>
+                     <Grid item key={index}>
                     <FlashDeck flashdeck={value}/>
                      </Grid>);
                 }

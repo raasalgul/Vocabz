@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import '../FlashCard/FlashCard.css'
+import '../FlashDeck/FlashDeck.css'
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
 import {serviceURLHost} from "../../constants/Constant";
 import authHeader from '../services/auth-header';
@@ -70,18 +71,19 @@ export default function FlashCard({flashdeck}) {
       return await response.json().then(()=>{window.location.reload(false); }); // parses JSON response into native JavaScript objects
     }
     return (
-<div
-      className={`card`}
+<Grid
+      className="card-deck"
+      container direction="column" spacing={1}
     >
-      <div className={classes.cross}>
+      <Grid className={classes.cross}>
       {/* <Button variant='contained' onClick={handleCross}>&#10060;</Button> */}
-      </div>
-      <div className="front"  onClick={() =>history.push({
+      </Grid>
+      <Grid className="front"  onClick={() =>history.push({
         pathname:`/flash-cards`,
         state: { deckName: flashdeck.deckName }
       })}>
-        <h1>{flashdeck.deckName}</h1> 
-      </div>
-    </div>
+        <h1 className={`word`}>{flashdeck.deckName}</h1> 
+      </Grid>
+    </Grid>
     );
 }
